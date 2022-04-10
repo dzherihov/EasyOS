@@ -1,0 +1,2 @@
+# EasyOS
+The system for managing the interface of virtual windows, folders and other elements of the operating system. This asset has a flexible architecture that can be integrated into your project, ranging from simulating an operating system to developing a file manager and cloud storage. The asset contains the UI package and the functionality of the main elements of interaction with the interface.
