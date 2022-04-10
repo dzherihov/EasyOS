@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf26827adbc367445b81e55fc552d643, type: 3}
+  m_Name: ConfigEditorWorkSpace
+  m_EditorClassIdentifier: 
+  guiSkin: {fileID: 11400000, guid: d887b05dc7c8d1748bca9096e2e5183f, type: 2}
+  iconsToolbar:
+  - icon: {fileID: 2800000, guid: 0c34ef5bf0b8b4f488637bd69cda72d3, type: 3}
+    title: Main settings
+  - icon: {fileID: 2800000, guid: 0360135240b3d9e49a92104401fa73ec, type: 3}
+    title: Window panels
+  - icon: {fileID: 2800000, guid: 5f247f7938c3ff94b8e7ab5f239894eb, type: 3}
+    title: Folders and files
+  - icon: {fileID: 2800000, guid: fc0a6d39ead21914abf1bb0e876b962b, type: 3}
+    title: Bottom panel
+  - icon: {fileID: 2800000, guid: c5e947e1ca1782449bcad63dc80dfb21, type: 3}
+    title: Desktop
+  - icon: {fileID: 2800000, guid: 041a23e1321880f40ace130f60a6a33f, type: 3}
+    title: Corsors
+  - icon: {fileID: 2800000, guid: 52c849b04512d444f8994c07c24429b0, type: 3}
+    title: Alerts
