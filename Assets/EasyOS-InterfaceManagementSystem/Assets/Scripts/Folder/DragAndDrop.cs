@@ -26,7 +26,7 @@ namespace Assets.Scripts.Folder
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-          if(!_isMoving || _cloneDrag == null) return;
+          if(!_isMoving || _cloneDrag == null || eventData.button != PointerEventData.InputButton.Left) return;
           _cloneDragTemp = Instantiate(_cloneDrag, Input.mousePosition, quaternion.identity, WorkSpaceSettings.Instance.mainCanvas);
           _cloneDragTemp.GetComponent<RectTransform>().sizeDelta = transform.GetComponent<RectTransform>().sizeDelta;
           _cloneDragTemp.GetComponent<SetDataDraggableFile>().Init(_dataFile.titleFile.text, _dataFile.iconFile.sprite);
@@ -44,7 +44,7 @@ namespace Assets.Scripts.Folder
 
         public void OnDrag(PointerEventData eventData)
         {
-          if(!_isMoving || _cloneDrag  == null) return;
+          if(!_isMoving || _cloneDrag  == null || eventData.button != PointerEventData.InputButton.Left) return;
           
           _cloneDragTemp.transform.position = Input.mousePosition;
         }
@@ -52,7 +52,7 @@ namespace Assets.Scripts.Folder
         
         public void OnEndDrag(PointerEventData eventData)
         {
-          if(!_isMoving || _cloneDrag  == null) return;
+          if(!_isMoving || _cloneDrag  == null || eventData.button != PointerEventData.InputButton.Left) return;
           
           Destroy(_cloneDragTemp);
           

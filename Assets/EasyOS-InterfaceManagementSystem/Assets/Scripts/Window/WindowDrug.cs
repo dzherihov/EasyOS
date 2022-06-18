@@ -27,7 +27,7 @@ namespace Assets.Scripts.Window
         
         public void OnDrag(PointerEventData eventData)
         {
-            if (_windowActions.isFullScreen) return;
+            if (_windowActions.isFullScreen || eventData.button != PointerEventData.InputButton.Left) return;
             if (_isBorderRestriction)
             {
                 if (Input.mousePosition.x >= (_maxPosCamera.x - _widthWindow / 2) + _pointPosX && Input.mousePosition.y < (_maxPosCamera.y - _heightWindow / 2) + _pointPosY && Input.mousePosition.y > (_minPosCamera.y + _heightWindow / 2) + _pointPosY)
@@ -64,6 +64,7 @@ namespace Assets.Scripts.Window
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if (eventData.button != PointerEventData.InputButton.Left) return;
             if (_windowActions.isFullScreen)
             {
                 _windowActions.ReduceFromFullScreen(Input.mousePosition.x, Input.mousePosition.y);
@@ -95,6 +96,7 @@ namespace Assets.Scripts.Window
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            if (eventData.button != PointerEventData.InputButton.Left) return;
             WorkSpaceSettings.Instance.SetDefaultCursor();
             isDrag = false;
         }

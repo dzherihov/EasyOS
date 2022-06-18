@@ -83,7 +83,7 @@ namespace Assets.Scripts.Window
       
       public void OnBeginDrag(PointerEventData eventData)
       {
-         if(!WorkSpaceSettings.Instance.resizableWindow) return;
+         if(!WorkSpaceSettings.Instance.resizableWindow || eventData.button != PointerEventData.InputButton.Left) return;
          if (_windowActions.isFullScreen) return;
 
          isResize = true;
@@ -113,7 +113,7 @@ namespace Assets.Scripts.Window
 
       public void OnDrag(PointerEventData eventData)
       {
-         if(!WorkSpaceSettings.Instance.resizableWindow) return;
+         if(!WorkSpaceSettings.Instance.resizableWindow || eventData.button != PointerEventData.InputButton.Left) return;
          if (_windowActions.isFullScreen) return;
          SetResize();
          _minSizeWindow = WorkSpaceSettings.Instance.minSizeWindowValue;
@@ -159,7 +159,7 @@ namespace Assets.Scripts.Window
 
       public void OnEndDrag(PointerEventData eventData)
       {
-         if(!WorkSpaceSettings.Instance.resizableWindow) return;
+         if(!WorkSpaceSettings.Instance.resizableWindow || eventData.button != PointerEventData.InputButton.Left) return;
          if (_windowActions.isFullScreen) return;
          
          isResize = false;
