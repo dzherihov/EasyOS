@@ -140,6 +140,9 @@ namespace Assets.Scripts
         case 6:
           AlertsPanelConfigs();
           break;
+        case 7:
+          ContextMenuPanelConfigs();
+          break;
       }
       
       EditorGUILayout.EndVertical();
@@ -254,7 +257,7 @@ namespace Assets.Scripts
         
         EditorGUILayout.BeginHorizontal();
         listShortcuts.GetArrayElementAtIndex(i).isExpanded = EditorGUILayout.BeginFoldoutHeaderGroup(listShortcuts.GetArrayElementAtIndex(i).isExpanded, titleListShortcuts, _selectStyle);
-        ShowButtons(listShortcuts, i);
+        ShowButtonsShortcuts(listShortcuts, i);
         EditorGUILayout.EndHorizontal();
 
         if (listShortcuts.arraySize > i && listShortcuts.GetArrayElementAtIndex(i) != null)
@@ -284,7 +287,7 @@ namespace Assets.Scripts
       
     }
     
-    private void ShowButtons (SerializedProperty list, int index) {
+    private void ShowButtonsShortcuts (SerializedProperty list, int index) {
 
       if (_workSpaceSettings.desktopGrid)
       {
@@ -523,6 +526,32 @@ namespace Assets.Scripts
       EditorGUI.indentLevel -= 1;
       EditorGUILayout.Separator();
       GUILayout.EndVertical();
+    }
+
+    private void ContextMenuPanelConfigs()
+    {
+      EditorGUILayout.LabelField("context menu", _headerStyle);
+      _currRect = EditorGUILayout.BeginVertical();
+      EditorGUILayout.Space(15);
+
+      _workSpaceSettings.contextPrefab = (GameObject) EditorGUILayout.ObjectField("Context menu prefab", _workSpaceSettings.contextPrefab, typeof(GameObject), true);
+      if(!_workSpaceSettings.contextPrefab) return;
+      
+      EditorGUILayout.Separator();
+      GUILayout.BeginVertical(_labelStyle);
+      EditorGUILayout.LabelField("Context menu items builder", _titleStyle);
+      EditorGUILayout.Separator();
+
+      EditorGUI.indentLevel += 1;
+
+      SerializedProperty listContextItems = serializedObject.FindProperty("contextMenuItems");
+      EditorGUILayout.PropertyField(listContextItems);
+
+      EditorGUI.indentLevel -= 1;
+      
+      EditorGUILayout.Separator();
+      GUILayout.EndVertical();
+      
     }
 
     private void DrawUILine(Color color, int thickness = 1, int padding = 10)

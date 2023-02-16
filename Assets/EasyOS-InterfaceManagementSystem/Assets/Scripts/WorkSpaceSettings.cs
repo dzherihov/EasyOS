@@ -38,6 +38,14 @@ namespace Assets.Scripts
     [NonSerialized] public List<FileShortcut> contentList = new List<FileShortcut>();
     public GetDataFile parentShortcut;
   }
+  
+  [Serializable]
+  public class ContextMenuItem
+  {
+    public string name;
+    public Sprite icon;
+    public GameObject prefab;
+  }
 
   [Serializable]
   public class ButtonAlert
@@ -102,6 +110,11 @@ namespace Assets.Scripts
     public Transform alertsRoot;
     public GameObject alertPrefab;
     public List<AlertBuilder> alertsList;
+    
+    [Header("Context menu"), Space(15)] 
+    public GameObject contextPrefab;
+    public List<ContextMenuItem> contextMenuItems;
+
 
     // [Header("Context menu")] 
     // [HideInInspector] public GameObject tempContextMenu;

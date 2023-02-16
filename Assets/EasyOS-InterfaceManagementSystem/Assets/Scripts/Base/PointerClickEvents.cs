@@ -12,6 +12,7 @@ namespace Assets.Scripts.Base
         public ClickEvents SingleClickEvent;
         public ClickEvents DoubleClickEvent;
         public ClickEvents MultiClickEvent;
+        public ClickEvents RightClickEvent;
         
         public void OnPointerClick(PointerEventData eventData)
         {
@@ -34,6 +35,16 @@ namespace Assets.Scripts.Base
                     }
                 }
             }
+
+            if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                int clickCount = eventData.clickCount;
+
+                if (clickCount == 1)
+                {
+                    OnRightClick();
+                }
+            }
         }
         
         private void OnSingleClick()
@@ -49,6 +60,11 @@ namespace Assets.Scripts.Base
         private void OnMultiClick()
         {
             MultiClickEvent.Invoke();
+        }
+        
+        private void OnRightClick()
+        {
+            RightClickEvent.Invoke();
         }
     }
 }

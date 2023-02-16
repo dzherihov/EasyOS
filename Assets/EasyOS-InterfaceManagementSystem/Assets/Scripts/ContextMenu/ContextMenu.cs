@@ -1,13 +1,11 @@
 using Assets.Scripts.Utility;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.ContextMenu
 {
-    public class ContextMenu : MonoBehaviour, IPointerClickHandler
+    public class ContextMenu : MonoBehaviour
     {
-        public GameObject contextPrefab;
-        
+        private GameObject contextPrefab;
         private Transform _parentContextPanel;
         private GameObject _contextPanel;
         private RectTransform _bottomPanel;
@@ -20,8 +18,9 @@ namespace Assets.Scripts
             
             if (WorkSpaceSettings.Instance.mainCanvas)
                 _parentContextPanel = WorkSpaceSettings.Instance.mainCanvas;
-            
-           
+
+            if (WorkSpaceSettings.Instance.contextPrefab)
+                contextPrefab = WorkSpaceSettings.Instance.contextPrefab;
         }
 
         private Vector3 CheckScreenSpawn(Vector2 pos, RectTransform panel)
@@ -53,35 +52,31 @@ namespace Assets.Scripts
 
             return curPos;
         }
-        
-        public void OnPointerClick(PointerEventData eventData)
+
+        public void OpenContextMenu()
         {
             if (contextPrefab != null)
             {
-                if (eventData.button == PointerEventData.InputButton.Right)
+                GameObject window = Instantiate(contextPrefab, _parentContextPanel.position, Quaternion.identity, _parentContextPanel);
+                _contextPanel = window;
+                window.GetComponent<RectTransform>().position = new Vector3(0, 0, 0);
+                window.transform.localScale = new Vector3(1, 1, 1);
+
+                if (_contextPanel != null)
                 {
-                   
-                    GameObject window = Instantiate(contextPrefab, _parentContextPanel.position, Quaternion.identity, _parentContextPanel);
-                    _contextPanel = window;
-                    window.GetComponent<RectTransform>().position = new Vector3(0, 0, 0);
-                    window.transform.localScale = new Vector3(1, 1, 1);
-
-                    if (_contextPanel != null)
+                    Canvas canvas = WorkSpaceSettings.Instance.mainCanvas.GetComponent<Canvas>();
+                    if (canvas != null)
                     {
-                        Canvas canvas = WorkSpaceSettings.Instance.mainCanvas.GetComponent<Canvas>();
-                        if (canvas != null)
-                        {
-                            RectTransform trans = _contextPanel.GetComponent<RectTransform>();
-                            if (trans == null) throw new UnityException("The display panel must have a RectTransform component attached in order to be displayed properly.");
+                        RectTransform trans = _contextPanel.GetComponent<RectTransform>();
+                        if (trans == null) throw new UnityException("The display panel must have a RectTransform component attached in order to be displayed properly.");
 
-                            Vector2 pos = CanvasMouseFollower.GetPointerPosOnCanvas(canvas, Input.mousePosition);
-                            trans.position = CheckScreenSpawn(pos, _contextPanel.GetComponent<RectTransform>());
-                        }
-                        if (canvas == null) throw new UnityException("The display panel must be the child of a canvas in order to be displayed properly.");
+                        Vector2 pos = CanvasMouseFollower.GetPointerPosOnCanvas(canvas, Input.mousePosition);
+                        trans.position = CheckScreenSpawn(pos, _contextPanel.GetComponent<RectTransform>());
                     }
-                    
+                    if (canvas == null) throw new UnityException("The display panel must be the child of a canvas in order to be displayed properly.");
                 }
             }
         }
+        
     }
 }
